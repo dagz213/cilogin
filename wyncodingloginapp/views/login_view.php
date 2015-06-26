@@ -1,14 +1,22 @@
-<h1>Test Page</h1>
-<div id="body">
-	<?php
-		foreach ($tests as $test) {
-			echo $test->testname . '</br>';
-		}
-	?>
-</div>
+<h1>Login Page</h1>
+<form>
 
-<input id="testName" type="text" name="testName">
-<input id="insertTestButton" type="button" value="Insert">
-<p id="message"></p>
+	<table>
+
+		<tr>
+			<td><input type="textbox" name ="username" placeholder="Username"/></td>
+		</tr>
+		<tr>
+			<td><input type="password" name ="password" placeholder="Password"/></td>
+		</tr>
+		<tr>
+			<td><div id="message"></div></td>
+		</tr>
+		<tr>
+			<td><input type="submit" name ="submit" placeholder="Login"/></td>
+		</tr>
+	</table>
+
+</form>
 
 <p><a href="registration">Not Registered yet? Click here</a></p>
