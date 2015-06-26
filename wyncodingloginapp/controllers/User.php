@@ -10,7 +10,12 @@ class User extends CI_Controller {
 
 	function register() {
 		$firstname = $this->input->post('firstname');
-		echo $firstname;
+		$lastname = $this->input->post('lastname');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$confirmpassword = $this->input->post('confirmpassword');
+		$email = $this->input->post('email');
+
 	}
 }
 
