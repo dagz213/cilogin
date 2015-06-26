@@ -5,11 +5,10 @@ class Registration extends CI_Controller {
 
 	public function index()
 	{
-		$this->test();
+		$data['title'] = 'Registration';
+		$this->load->view('header_view', $data);
+		$this->load->view('registration_view', $data);
+		$this->load->view('footer_view', $data);
 	}
 
-	public function test()
-	{
-		$this->load->view('registration_view');
-	}
 }

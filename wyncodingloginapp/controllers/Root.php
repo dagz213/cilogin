@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Root extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -27,8 +27,29 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model('model_test');
 
+		$data['title']= 'Login';
 		$data['tests'] = $this->model_test->getTestNames();
 
-		$this->load->view('welcome_message', $data);
+		$this->load->view('header_view', $data);
+		$this->load->view('login_view', $data);
+		$this->load->view('footer_view', $data);
+	}
+
+	public function insertTestName() {
+
+		$testName = $this->input->post('testName');
+		if($testName != NULL) {
+			$this->load->model('model_test');
+
+			$result = $this->model_test->insertNewTest($testName);
+
+			if($result == "fail") {
+				echo "FAIL";
+			} else {
+				echo $testName;
+			}
+		} else {
+			echo "EMPTY";
+		}
 	}
 }
