@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
@@ -8,6 +9,9 @@ class User extends CI_Controller {
 	}
 
 	function register() {
-		
+		$firstname = $this->input->post('firstname');
+		echo $firstname;
 	}
 }
+
+?>

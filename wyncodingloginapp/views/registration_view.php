@@ -1,5 +1,5 @@
 <h1>Registration Page</h1>
-<form>
+<form id="registrationForm">
 
 	<table>
 

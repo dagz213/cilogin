@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	/*
+	TEST CODE FOR INSERTING
 	$('#insertTestButton').click(function(){
 		$('#message').val('');
 
@@ -31,4 +33,35 @@ $(document).ready(function(){
 
 		$('#testName').val('');
 	});
+	*/
+
+	/*****************
+	*  Registration  *
+	*****************/
+
+	$('#registrationForm').submit(function(event) {
+	    /* Stop form from submitting normally */
+	    event.preventDefault();
+	    $('#message').empty();
+	    /* Get some values from elements on the page: */
+	    var values = $(this).serialize();
+	    /* Send the data using post and put the results in a div */
+	     $.ajax({
+	        url: "user/register",
+	        type: "post",
+	        data: values,
+	        cache: false,
+	        success: function(data){
+	        	alert(data);
+	        },
+	        error:function(){
+	        	$('#message').css('color', 'red'); 
+	            $("#message").html('Something went wrong with the request!');
+	        }
+	    });
+	});
+
+	/*****************
+	*  Registration  *
+	*****************/
 });
