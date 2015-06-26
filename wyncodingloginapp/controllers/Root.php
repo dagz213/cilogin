@@ -18,6 +18,12 @@ class Root extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	function __construct(){
+		parent::__construct();
+		$this->load->model('model_test');
+	}
+
 	public function index()
 	{
 		$this->test();
@@ -25,8 +31,6 @@ class Root extends CI_Controller {
 
 	public function test()
 	{
-		$this->load->model('model_test');
-
 		$data['title']= 'Login';
 		$data['tests'] = $this->model_test->getTestNames();
 
@@ -39,8 +43,6 @@ class Root extends CI_Controller {
 
 		$testName = $this->input->post('testName');
 		if($testName != NULL) {
-			$this->load->model('model_test');
-
 			$result = $this->model_test->insertNewTest($testName);
 
 			if($result == "fail") {
