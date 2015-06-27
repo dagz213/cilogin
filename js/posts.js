@@ -53,12 +53,20 @@ $(document).ready(function(){
 	        cache: false,
 	        dataType: "json",
 	        success: function(data){
-	        	$('#errorone').html(data['firstname']);
-	        	$('#errortwo').html(data['lastname']);
-	        	$('#errorthree').html(data['username']);
-	        	$('#errorfour').html(data['password']);
-	        	$('#errorfive').html(data['confirmpassword']);
-	        	$('#errorsix').html(data['email']);
+	        	if(data['passworderror']) {
+	        		$('#message').css('color', 'red'); 
+	            	$("#message").html('Passwords don\'t match!');
+	        	} else if(data['success']) {
+					$('#message').css('color', 'green'); 
+	            	$("#message").html('Register Successful!');
+	        	} else {
+		        	$('#errorone').html(data['firstname']);
+		        	$('#errortwo').html(data['lastname']);
+		        	$('#errorthree').html(data['username']);
+		        	$('#errorfour').html(data['password']);
+		        	$('#errorfive').html(data['confirmpassword']);
+		        	$('#errorsix').html(data['email']);
+		        }
 	        },
 	        error:function(){
 	        	$('#message').css('color', 'red'); 

@@ -7,6 +7,9 @@
 			parent::__construct();
 		}
 
+		function addNewUser($firstname, $lastname, $username, $password, $email) {
+
+		}
 	}
 
 ?>

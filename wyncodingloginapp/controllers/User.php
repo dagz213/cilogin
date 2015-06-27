@@ -9,7 +9,7 @@ class User extends CI_Controller {
 	}
 
 	function register() {
-		
+
 		$firstname = $this->input->post('firstname');
 		$lastname = $this->input->post('lastname');
 		$username = $this->input->post('username');
@@ -37,6 +37,17 @@ class User extends CI_Controller {
 
 		} else {
 
+			if($password != $confirmpassword) {
+
+				$error['passworderror'] = "error";
+				echo json_encode($error);
+
+			} else {
+
+				$success['success'] = 'success';
+				echo json_encode($success);
+				
+			}
 		}	
 	}
 }
