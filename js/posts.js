@@ -51,8 +51,14 @@ $(document).ready(function(){
 	        type: "post",
 	        data: values,
 	        cache: false,
+	        dataType: "json",
 	        success: function(data){
-	        	alert(data);
+	        	$('#errorone').html(data['firstname']);
+	        	$('#errortwo').html(data['lastname']);
+	        	$('#errorthree').html(data['username']);
+	        	$('#errorfour').html(data['password']);
+	        	$('#errorfive').html(data['confirmpassword']);
+	        	$('#errorsix').html(data['email']);
 	        },
 	        error:function(){
 	        	$('#message').css('color', 'red'); 

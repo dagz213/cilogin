@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $title; ?></title>
+	<link href="css/style.css" rel="stylesheet">
 	<script src="js/jquery.js"></script>
 	<script src="js/posts.js"></script>
 </head>

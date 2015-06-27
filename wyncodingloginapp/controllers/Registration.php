@@ -5,6 +5,8 @@ class Registration extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->library('form_validation');
+		
 		$data['title'] = 'Registration';
 		$this->load->view('header_view', $data);
 		$this->load->view('registration_view', $data);
