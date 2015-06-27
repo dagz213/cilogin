@@ -9,6 +9,7 @@ class User extends CI_Controller {
 	}
 
 	function register() {
+		$this->load->model('model_user');
 
 		$firstname = $this->input->post('firstname');
 		$lastname = $this->input->post('lastname');
@@ -27,26 +28,36 @@ class User extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 
-			$error['firstname'] = form_error('firstname');
-			$error['lastname'] = form_error('lastname');
-			$error['username'] = form_error('username');
-			$error['password'] = form_error('password');
-			$error['confirmpassword'] = form_error('confirmpassword');
-			$error['email'] = form_error('email');
-			echo json_encode($error);
+			$response['firstname'] = form_error('firstname');
+			$response['lastname'] = form_error('lastname');
+			$response['username'] = form_error('username');
+			$response['password'] = form_error('password');
+			$response['confirmpassword'] = form_error('confirmpassword');
+			$response['email'] = form_error('email');
+			echo json_encode($response);
 
 		} else {
 
 			if($password != $confirmpassword) {
 
-				$error['passworderror'] = "error";
-				echo json_encode($error);
+				$response['passworderror'] = "error";
+				echo json_encode($response);
 
 			} else {
 
-				$success['success'] = 'success';
-				echo json_encode($success);
-				
+				$result = $this->model_user->addNewUser($firstname, $lastname, $username, $password, $email);
+
+				if($result) {
+
+					$response['success'] = $result;
+					echo json_encode($response);
+
+				} else {
+
+					$response['failed'] = "failed";
+					echo json_encode($response);
+					
+				}
 			}
 		}	
 	}

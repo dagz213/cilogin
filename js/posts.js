@@ -54,18 +54,29 @@ $(document).ready(function(){
 	        dataType: "json",
 	        success: function(data){
 	        	if(data['passworderror']) {
+
 	        		$('#message').css('color', 'red'); 
 	            	$("#message").html('Passwords don\'t match!');
+
 	        	} else if(data['success']) {
+
 					$('#message').css('color', 'green'); 
 	            	$("#message").html('Register Successful!');
+
+	        	} else if(data['failed']) { 
+
+	        		$('#message').css('color', 'red'); 
+	            	$("#message").html('Something went wrong with the registration!');
+
 	        	} else {
+
 		        	$('#errorone').html(data['firstname']);
 		        	$('#errortwo').html(data['lastname']);
 		        	$('#errorthree').html(data['username']);
 		        	$('#errorfour').html(data['password']);
 		        	$('#errorfive').html(data['confirmpassword']);
 		        	$('#errorsix').html(data['email']);
+		        	
 		        }
 	        },
 	        error:function(){
