@@ -6,10 +6,12 @@ class User extends CI_Controller {
 
 	function __construct(){		
 		parent::__construct();
+
+		$this->load->model('model_user');
+		$this->load->library('form_validation');
 	}
 
 	function register() {
-		$this->load->model('model_user');
 
 		$firstname = $this->input->post('firstname');
 		$lastname = $this->input->post('lastname');
@@ -18,7 +20,6 @@ class User extends CI_Controller {
 		$confirmpassword = $this->input->post('confirmpassword');
 		$email = $this->input->post('email');
 
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('firstname', 'First Name', 'required');
 		$this->form_validation->set_rules('lastname', 'Last Name', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required');
@@ -56,11 +57,50 @@ class User extends CI_Controller {
 
 					$response['failed'] = "failed";
 					echo json_encode($response);
-					
+
 				}
 			}
 		}	
-	}
+	} /* END OF REGISTER FUNCTION */
+
+	function login() {
+
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+
+			$response['username'] = form_error('username');
+			$response['password'] = form_error('password');
+			echo json_encode($response);
+
+		} else {
+
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+
+			$result = $this->model_user->checkIfUserExists($username);
+			if($result) {
+
+
+				$user = $this->model_user->getUser($username);
+
+				if($user->password == sha1($password)) {
+					$response['success'] = "Login Successful";
+					echo json_encode($response);
+				} else {
+					$response['wrongpassword'] = "Wrong username or password!";
+					echo json_encode($response);
+				}
+
+
+			} else {
+				$response['notexists'] = "not exists";
+				echo json_encode($response);
+			}
+		}
+
+	} /* END OF LOGIN FUNCTION */
 }
 
 ?>

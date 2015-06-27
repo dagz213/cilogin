@@ -42,7 +42,14 @@ $(document).ready(function(){
 	$('#registrationForm').submit(function(event) {
 	    /* Stop form from submitting normally */
 	    event.preventDefault();
-	    $('#message').empty();
+	    var message = $('#message');
+	    message.empty();
+	    $('#errorone').empty();
+    	$('#errortwo').empty();
+    	$('#errorthree').empty();
+    	$('#errorfour').empty();
+    	$('#errorfive').empty();
+    	$('#errorsix').empty();
 	    /* Get some values from elements on the page: */
 	    var values = $(this).serialize();
 	    /* Send the data using post and put the results in a div */
@@ -55,18 +62,18 @@ $(document).ready(function(){
 	        success: function(data){
 	        	if(data['passworderror']) {
 
-	        		$('#message').css('color', 'red'); 
-	            	$("#message").html('Passwords don\'t match!');
+	        		message.css('color', 'red'); 
+	            	message.html('Passwords don\'t match!');
 
 	        	} else if(data['success']) {
 
-					$('#message').css('color', 'green'); 
-	            	$("#message").html('Register Successful!');
+					message.css('color', 'green'); 
+	            	message.html('Register Successful!');
 
 	        	} else if(data['failed']) { 
 
-	        		$('#message').css('color', 'red'); 
-	            	$("#message").html('Something went wrong with the registration!');
+	        		message.css('color', 'red'); 
+	            	message.html('Something went wrong with the registration!');
 
 	        	} else {
 
@@ -76,17 +83,76 @@ $(document).ready(function(){
 		        	$('#errorfour').html(data['password']);
 		        	$('#errorfive').html(data['confirmpassword']);
 		        	$('#errorsix').html(data['email']);
-		        	
+
 		        }
 	        },
 	        error:function(){
-	        	$('#message').css('color', 'red'); 
-	            $("#message").html('Something went wrong with the request!');
+	        	message.css('color', 'red'); 
+	            message.html('Something went wrong with the request!');
 	        }
 	    });
 	});
 
 	/*****************
 	*  Registration  *
+	*****************/
+
+	/*****************
+	*      Login     *
+	*****************/
+
+	$('#loginForm').submit(function(event) {
+	    /* Stop form from submitting normally */
+
+	    var message = $('#message');
+
+    	$('#errorthree').empty();
+    	$('#errorfour').empty();
+
+	    event.preventDefault();
+
+	    message.empty();
+
+	    /* Get some values from elements on the page: */
+	    var values = $(this).serialize();
+	    /* Send the data using post and put the results in a div */
+	     $.ajax({
+	        url: "user/login",
+	        type: "post",
+	        data: values,
+	        cache: false,
+	        dataType: "json",
+	        success: function(data){
+	        	if(data['success']) {
+
+	        		message.css('color', 'green'); 
+	            	message.html(data['success']);
+
+	        	} else if(data['notexists']) {
+
+	        		message.css('color', 'red'); 
+	            	message.html('User doesn\'t exist!');
+
+	        	} else if(data['wrongpassword']) { 
+
+	        		message.css('color', 'red'); 
+	            	message.html(data['wrongpassword']);
+
+	        	}  else {
+
+		        	$('#errorthree').html(data['username']);
+		        	$('#errorfour').html(data['password']);
+
+		        }
+	        },
+	        error:function(){
+	        	message.css('color', 'red'); 
+	            message.html('Something went wrong with the request!');
+	        }
+	    });
+	});
+
+	/*****************
+	*      Login     *
 	*****************/
 });

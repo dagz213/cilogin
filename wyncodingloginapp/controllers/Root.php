@@ -21,37 +21,14 @@ class Root extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('model_test');
 	}
 
 	public function index()
 	{
-		$this->test();
-	}
-
-	public function test()
-	{
 		$data['title']= 'Login';
-		$data['tests'] = $this->model_test->getTestNames();
 
 		$this->load->view('header_view', $data);
 		$this->load->view('login_view', $data);
 		$this->load->view('footer_view', $data);
-	}
-
-	public function insertTestName() {
-
-		$testName = $this->input->post('testName');
-		if($testName != NULL) {
-			$result = $this->model_test->insertNewTest($testName);
-
-			if($result == "fail") {
-				echo "FAIL";
-			} else {
-				echo $testName;
-			}
-		} else {
-			echo "EMPTY";
-		}
 	}
 }

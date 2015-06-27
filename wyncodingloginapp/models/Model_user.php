@@ -12,11 +12,30 @@
 				'firstname' => $firstname,
 				'lastname' => $lastname,
 				'username' => $username,
-				'password' => md5($password),
+				'password' => sha1($password),
 				'email' => $email
 				);
 			$result = $this->db->insert('user', $user);
 			if($result) return true;
+		}
+
+		function checkIfUserExists($username) {
+
+			$this->db->where('username', $username);
+			$query = $this->db->get('user');
+
+			if($query->num_rows() > 0) return true;
+		}
+
+		function getUser($username) {
+
+			$this->db->where('username', $username);
+			$query = $this->db->get('user');
+
+			if($query) {
+				return $query->row();
+
+			}
 		}
 	}
 
