@@ -21,14 +21,23 @@ class Root extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+		session_start();
 	}
 
 	public function index()
 	{
-		$data['title']= 'Login';
+		if(isset($_SESSION['username'])) {
+			$data['title']= 'Dashboard';
 
-		$this->load->view('header_view', $data);
-		$this->load->view('login_view', $data);
-		$this->load->view('footer_view', $data);
+			$this->load->view('header_view', $data);
+			$this->load->view('dashboard', $data);
+			$this->load->view('footer_view', $data);
+		} else {
+			$data['title']= 'Login';
+
+			$this->load->view('header_view', $data);
+			$this->load->view('login_view', $data);
+			$this->load->view('footer_view', $data);
+		}
 	}
 }

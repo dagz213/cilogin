@@ -124,10 +124,7 @@ $(document).ready(function(){
 	        dataType: "json",
 	        success: function(data){
 	        	if(data['success']) {
-
-	        		message.css('color', 'green'); 
-	            	message.html(data['success']);
-
+	        		window.location = "/cilogin";
 	        	} else if(data['notexists']) {
 
 	        		message.css('color', 'red'); 

@@ -2,13 +2,15 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class User extends CI_Controller {
 
 	function __construct(){		
 		parent::__construct();
-
+		session_start();
 		$this->load->model('model_user');
 		$this->load->library('form_validation');
+		$this->load->helper('url');
 	}
 
 	function register() {
@@ -86,9 +88,13 @@ class User extends CI_Controller {
 				$user = $this->model_user->getUser($username);
 
 				if($user->password == sha1($password)) {
-					$response['success'] = "Login Successful";
-					echo json_encode($response);
+					
+					$_SESSION['username'] = $username;
+  					$response['success'] = "success";
+  					echo json_encode($response);
+
 				} else {
+
 					$response['wrongpassword'] = "Wrong username or password!";
 					echo json_encode($response);
 				}
@@ -101,6 +107,11 @@ class User extends CI_Controller {
 		}
 
 	} /* END OF LOGIN FUNCTION */
+
+	public function logout() {
+		session_destroy();
+		redirect(base_url(), 'refresh');
+	}
 }
 
 ?>
